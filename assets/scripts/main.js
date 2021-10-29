@@ -19,6 +19,8 @@ window.addEventListener('DOMContentLoaded', init);
 async function init() {
   // fetch the recipes and wait for them to load
   let fetchSuccessful = await fetchRecipes();
+  //console.log(fetchSuccessful);
+
   // if they didn't successfully load, quit the function
   if (!fetchSuccessful) {
     console.log('Recipe fetch unsuccessful');
@@ -43,6 +45,16 @@ async function fetchRecipes() {
     // in the recipes folder and fetch them from there. You'll need to add their paths to the recipes array.
 
     // Part 1 Expose - TODO
+    setTimeout( function() {
+      resolve("Success!")  // Yay! Everything went well!
+    }, 250)
+
+    for (const recipe of recipes) {
+      console.log(recipe);
+    }
+
+
+
   });
 }
 
@@ -54,6 +66,9 @@ function createRecipeCards() {
   // show any others you've added when the user clicks on the "Show more" button.
 
   // Part 1 Expose - TODO
+
+
+
 }
 
 function bindShowMore() {
