@@ -94,6 +94,7 @@ function createRecipeCards() {
     var elem = document.createElement('recipe-card');
     elem.data = json;
     main.appendChild(elem);
+    //break;
 
   }
 }

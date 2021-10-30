@@ -102,31 +102,96 @@ class RecipeCard extends HTMLElement {
     // created in the constructor()
 
     // Part 1 Expose - TODO
-    this.shadowRoot.append(card);
+    this.shadowRoot.appendChild(card);
+    this.shadowRoot.appendChild(styleElem);
+
+    var url = getUrl(data);
+    console.log(url);
+
+    var title = searchForKey(data, 'headline');
+
     var img = document.createElement('img');
-    var data_image = searchForKey(data, 'image');
-    if (data_image) {
-      console.log(data_image['thumbnail']);
-      img.src = data_image['thumbnail'];
-      img.alt = searchForKey()
-
+    var dataThumb = searchForKey(data, 'image')['url'];
+    if (dataThumb) {
+      img.src = dataThumb;
     } else {
-
+      dataThumb = searchForKey(data, 'thumbnailUrl');
+      img.src = dataThumb;
     }
-    
-    
-    //img.src = 
-    //img.alt = searchForKey(data, 'title')
-    //card.append()
+    img.alt = title;
+    card.appendChild(img);
+
+    //<p class="title">
+    //<a href="https://link-to-article.com">Title</a>
+    //</p>
+    var para = document.createElement('p');
+    card.appendChild(para);
+    var a = document.createElement('a');
+    para.appendChild(a);
+    a.title = title;
+    var link = document.createTextNode(title);
+    a.appendChild(link);
+    a.href = url;   
+
+    //<p class="organization">The Chef's Organization</p>
+    para = document.createElement('p');
+    para.setAttribute('class', 'organization');
+    para.innerHTML = getOrganization(data);
+    card.appendChild(para);
+
+    var div = document.createElement('div');
+    div.setAttribute('class', 'rating');
 
     var rating = searchForKey(data, 'aggregateRating');
+    var span;
+    var text;
     if (rating) {
-      //console.log(rating);
-      console.log(rating['ratingValue']);
+      var ratingValue = Math.round(rating['ratingValue']);
+      span = document.createElement('span');
+      text = document.createTextNode(ratingValue);
+      span.appendChild(text);
+      div.appendChild(span);
+
+      img = document.createElement('img');
+      img.src = `/assets/images/icons/${ratingValue}-star.svg`;
+      img.alt = `${ratingValue} stars`;
+      div.appendChild(img);
+
+      var totalReviews = rating['ratingCount'];
+      span = document.createElement('span');
+      text = document.createTextNode('(' + totalReviews + ')');
+      span.appendChild(text);
+      div.appendChild(span);
     } else {
-      console.log('No rating');
+      span = document.createElement('span');
+      text = document.createTextNode('No Reviews');
+      span.appendChild(text);
+      div.appendChild(span);
     }
-    //card.append
+    card.appendChild(div);
+
+
+    //<time>50 min</time>
+
+    var totalTime = searchForKey(data, 'totalTime');
+
+    var time = document.createElement('time');
+    text = document.createTextNode(convertTime(totalTime));
+    time.appendChild(text);
+    card.appendChild(time);
+
+    //<p class="ingredients">
+    //Comma, Separated, List, of, Ingredients
+    //</p>
+
+    var recipeArr = searchForKey(data, 'recipeIngredient');
+
+    para = document.createElement('p');
+    para.setAttribute('class', 'ingredients');
+    text = document.createTextNode(createIngredientList(recipeArr));
+    para.appendChild(text);
+    card.appendChild(para);
+
 
   }
 }
