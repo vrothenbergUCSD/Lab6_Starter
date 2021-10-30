@@ -1,0 +1,213 @@
+{
+"@context": "http://schema.org",
+
+"@type": ["Recipe"]
+,"headline": "Roasted Broccoli With Parmesan"
+,"datePublished": "2012-10-31T09:45:07.000-04:00"
+,"dateModified": "2021-05-25T19:41:19.441-04:00"
+,"author": [
+{"@type": "Person"
+,"name": "Elise Bauer"
+,"description": "Elise founded Simply Recipes in 2003 and led the site until 2019. She has an MA in Food Research from Stanford University."
+,"jobTitle": "Founder"
+,"sameAs": [
+"https://www.instagram.com/elisebauer/",
+"https://www.simplyrecipes.com/elise-bauer-5091824"
+]
+,"knowsAbout": ["Scratch cooking with whole ingredients"]
+,"alumniOf": [
+{
+"@type": "Organization",
+"Name": "Stanford University: BS in Environmental Science; MA in Food Research; MBA from the Graduate School of Business "
+}
+]
+}
+]
+,"description": "Broccoli, tossed in olive oil, lemon juice and salt, roasted and served with parmesan cheese and lots of black pepper."
+,"image": [
+{
+"@type": "ImageObject",
+"url": "https://www.simplyrecipes.com/thmb/_YnYob7lUCSJvrUidT766DX68-I=/1200x675/smart/filters:no_upscale()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2012__10__roasted-broccoli-horiz-close-1200-d6cccd774e5f49ef9b7bc5a1747b61ba.jpg",
+"height": 675,
+"width": 1200
+},
+{
+"@type": "ImageObject",
+"url": "https://www.simplyrecipes.com/thmb/QhIY4V6jFvawXDhqWg9HeASd5vc=/1151x863/smart/filters:no_upscale()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2012__10__roasted-broccoli-horiz-close-1200-d6cccd774e5f49ef9b7bc5a1747b61ba.jpg",
+"height": 863,
+"width": 1151
+},
+{
+"@type": "ImageObject",
+"url": "https://www.simplyrecipes.com/thmb/rXi7jP70_qiKx0VCJvgz7Xn4WEo=/863x863/smart/filters:no_upscale()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2012__10__roasted-broccoli-horiz-close-1200-d6cccd774e5f49ef9b7bc5a1747b61ba.jpg",
+"height": 863,
+"width": 863
+}
+]
+,"publisher": {
+"@type": "Organization",
+"name": "Simply Recipes",
+"url": "https://www.simplyrecipes.com",
+"logo": {
+"@type": "ImageObject",
+"url": "https://www.simplyrecipes.com/thmb/QvixEwCD02s_lnkgkVb6mHwKS7c=/1125x320/filters:no_upscale():max_bytes(150000):strip_icc()/SimplyRecipesLogoTransparent-07a297c54b2142ae9c079abb2f0fa639.png",
+"width": 1125,
+"height": 320
+},
+"brand": "Simply Recipes"
+, "publishingPrinciples": "https://www.simplyrecipes.com/about-us-5096129#editorial-guidelines"
+}
+,"name": "Roasted Broccoli With Parmesan"
+,"aggregateRating": {
+"@type": "AggregateRating",
+"ratingValue": "4.5",
+"ratingCount": "183"
+}
+,"cookTime": "PT20M"
+,"keywords": "Quick and Easy, Broccoli, Green Vegetables, American, Gluten-Free, Low Carb, Vegetarian, Side Dish"
+,"nutrition": {
+"@type": "NutritionInformation"
+,"calories": "210 kcal"
+,"carbohydrateContent": "14 g"
+,"cholesterolContent": "5 mg"
+,"fiberContent": "6 g"
+,"proteinContent": "6 g"
+,"saturatedFatContent": "3 g"
+,"sodiumContent": "263 mg"
+,"sugarContent": "2 g"
+,"fatContent": "16 g"
+,"servingSize": "Serves 3-4 as a side dish"
+,"unsaturatedFatContent": "0 g"
+}
+,"prepTime": "PT5M"
+, "recipeCategory": ["Side Dish","Quick and Easy","Broccoli","Green Vegetables"]
+,"recipeCuisine": ["American"]
+,"recipeIngredient": [
+"1 1/2 pounds (680g) broccoli, cut into florets of even size",
+"3-4 tablespoons extra virgin olive oil",
+"Juice from half a lemon, about 1 Tbsp",
+"Kosher salt",
+"2-3 garlic cloves, minced",
+"Freshly ground black pepper",
+"1/4 cup grated Parmesan cheese, or to taste" ]
+,"recipeInstructions": [
+{
+"@type": "HowToStep"
+,"text": "Preheat oven: Preheat oven to 425°F (220°C)."
+} ,{
+"@type": "HowToStep"
+,"text": "Toss broccoli and garlic with olive oil, lemon juice, salt: In a large bowl toss the broccoli florets and minced garlic with olive oil and lemon juice until lightly coated. Sprinkle salt over the broccoli and toss to coat."
+} ,{
+"@type": "HowToStep"
+,"image": {
+"@type": "ImageObject",
+"url": "https://www.simplyrecipes.com/thmb/15mOk5ex870Xy7BjdWNXNyOMWdI=/800x533/filters:no_upscale()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2012__10__roasted-broccoli-method-1-877233277bac486a9633928edbb016cf.jpg",
+"height": 533,
+"width": 800
+}
+,"text": "Arrange florets in a single layer on baking sheet: Arrange the broccoli florets in a single layer on a baking sheet that has been rubbed with some olive oil or lined with parchment paper or aluminum foil."
+} ,{
+"@type": "HowToStep"
+,"image": {
+"@type": "ImageObject",
+"url": "https://www.simplyrecipes.com/thmb/Azk8Sm_zShkXcRBHe5-78zySjEI=/800x533/filters:no_upscale()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2012__10__roasted-broccoli-method-2-076d44370c464b87a8bc2c89e4b4e117.jpg",
+"height": 533,
+"width": 800
+}
+,"text": "Roast for 16-20 minutes: Roast at 425°F (220°C) for 16-20 minutes until cooked through (check by poking with a fork, should be fork tender) and lightly browned. The browned bits are the best! So don&#39;t worry if you see some charring."
+} ,{
+"@type": "HowToStep"
+,"image": {
+"@type": "ImageObject",
+"url": "https://www.simplyrecipes.com/thmb/tJtSWBJT8q1E5mYnZfo0OGXWVtk=/1200x1860/filters:no_upscale()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2012__10__roasted-broccoli-vertical-a-1200-fcaf9eb3e35f4ed4b1ab11d121c4aba7.jpg",
+"height": 1860,
+"width": 1200
+}
+,"text": "Toss with Parmesan and black pepper: Put the roasted broccoli back in the bowl and toss with lots of freshly ground black pepper and the grated parmesan cheese. Be generous with the black pepper, broccoli loves it! Serve immediately. Links: Roasted Broccolini here on Simply Recipes Another version of Roasted Broccoli with Garlic - from Kalyn's Kitchen Coconut Roasted Broccoli Dip - from Good. Food. Stories."
+} ]
+,"recipeYield": "4"
+,"totalTime": "PT25M"
+,"review": [
+{
+"@type": "Review",
+"author": {
+"@type": "Person",
+"name": "Kay"
+},
+"reviewBody": "This is absolutely delicious! This is my new favourite recipe for roasting broccoli. I have done it many ways and I think that the lemon is key. Do not omit the lemon!"
+}
+,
+{
+"@type": "Review",
+"author": {
+"@type": "Person",
+"name": "Heather"
+},
+"reviewBody": "I sprinkled the Parmesan on for the last few minutes, what didn't stick to the broccoli turned crispy on the bottom of the pan ( an extra treat)!"
+}
+,
+{
+"@type": "Review",
+"author": {
+"@type": "Person",
+"name": "Geoff"
+},
+"reviewBody": "12-14 minutes would be far better. Mine came out burnt at 20"
+}
+,
+{
+"@type": "Review",
+"author": {
+"@type": "Person",
+"name": "skypockets"
+},
+"reviewBody": "So good. I made it for a friend so only got a small nibble, but I WILL be making it again. And again. My friend loved it and that made me very happy!"
+}
+,
+{
+"@type": "Review",
+"author": {
+"@type": "Person",
+"name": "Moriah"
+},
+"reviewBody": "Very tasty and I didn't even add the cheese. Came out perfect after 19 minutes."
+}
+]
+,"mainEntityOfPage": {
+"@type": ["WebPage"]
+,"@id": "https://www.simplyrecipes.com/recipes/roasted_broccoli/"
+,"breadcrumb": {
+"@type": "BreadcrumbList",
+"itemListElement": [
+{
+"@type": "ListItem",
+"position": 1,
+"item": {
+"@id": "https://www.simplyrecipes.com/recipes-by-diet-5091259",
+"name": "Recipes By Diet"
+}
+}
+,
+{
+"@type": "ListItem",
+"position": 2,
+"item": {
+"@id": "https://www.simplyrecipes.com/low-carb-recipes-5091251",
+"name": "Low Carb"
+}
+}
+,
+{
+"@type": "ListItem",
+"position": 3,
+"item": {
+"@id": "https://www.simplyrecipes.com/recipes/roasted_broccoli/",
+"name": "Roasted Broccoli with Parmesan"
+}
+}
+]
+}
+}
+, "about": [
+]		
+}
