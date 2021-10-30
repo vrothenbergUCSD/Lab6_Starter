@@ -3,9 +3,8 @@ class RecipeCard extends HTMLElement {
     // Part 1 Expose - TODO
     super();
 
-
     // You'll want to attach the shadow DOM here
-    let shadow = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({mode: 'open'});
   }
 
   set data(data) {
@@ -103,6 +102,18 @@ class RecipeCard extends HTMLElement {
     // created in the constructor()
 
     // Part 1 Expose - TODO
+    this.shadowRoot.append(card);
+    console.log('RecipeCard');
+
+
+
+    var rating = searchForKey(data, 'aggregateRating');
+    if (rating) {
+      console.log(rating);
+    }
+
+    //this.shadowRoot;
+
   }
 }
 
@@ -194,6 +205,8 @@ function convertTime(time) {
 
   return '';
 }
+
+
 
 /**
  * Takes in a list of ingredients raw from imported data and returns a neatly
