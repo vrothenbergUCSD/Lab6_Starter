@@ -4,7 +4,7 @@ class RecipeCard extends HTMLElement {
     super();
 
     // You'll want to attach the shadow DOM here
-    let shadow = this.attachShadow({ mode: "open" });
+    const shadowRoot = this.attachShadow({mode: 'open'});
   }
 
   set data(data) {
@@ -102,8 +102,117 @@ class RecipeCard extends HTMLElement {
     // created in the constructor()
 
     // Part 1 Expose - TODO
+    this.shadowRoot.appendChild(card);
+    this.shadowRoot.appendChild(styleElem);
+
+    var url = getUrl(data);
+    //console.log(url);
+
+    var title = searchForKey(data, 'headline');
+
+    var img = document.createElement('img');
+    img.src = getImage(data);
+    img.alt = title;
+    card.appendChild(img);
+
+    //<p class="title">
+    //<a href="https://link-to-article.com">Title</a>
+    //</p>
+    var para = document.createElement('p');
+    card.appendChild(para);
+    var a = document.createElement('a');
+    para.appendChild(a);
+    a.title = title;
+    var link = document.createTextNode(title);
+    a.appendChild(link);
+    a.href = url;   
+
+    //<p class="organization">The Chef's Organization</p>
+    para = document.createElement('p');
+    para.setAttribute('class', 'organization');
+    para.innerHTML = getOrganization(data);
+    card.appendChild(para);
+
+    var div = document.createElement('div');
+    div.setAttribute('class', 'rating');
+
+    var rating = searchForKey(data, 'aggregateRating');
+    var span;
+    var text;
+    if (rating) {
+      var ratingValue = Math.round(rating['ratingValue']);
+      span = document.createElement('span');
+      text = document.createTextNode(ratingValue);
+      span.appendChild(text);
+      div.appendChild(span);
+
+      img = document.createElement('img');
+      img.src = `assets/images/icons/${ratingValue}-star.svg`;
+      img.alt = `${ratingValue} stars`;
+      div.appendChild(img);
+
+      var totalReviews = rating['ratingCount'];
+      span = document.createElement('span');
+      text = document.createTextNode('(' + totalReviews + ')');
+      span.appendChild(text);
+      div.appendChild(span);
+    } else {
+      span = document.createElement('span');
+      text = document.createTextNode('No Reviews');
+      span.appendChild(text);
+      div.appendChild(span);
+    }
+    card.appendChild(div);
+
+
+    //<time>50 min</time>
+
+    var totalTime = searchForKey(data, 'totalTime');
+
+    var time = document.createElement('time');
+    text = document.createTextNode(convertTime(totalTime));
+    time.appendChild(text);
+    card.appendChild(time);
+
+    //<p class="ingredients">
+    //Comma, Separated, List, of, Ingredients
+    //</p>
+
+    var recipeArr = searchForKey(data, 'recipeIngredient');
+
+    para = document.createElement('p');
+    para.setAttribute('class', 'ingredients');
+    text = document.createTextNode(createIngredientList(recipeArr));
+    para.appendChild(text);
+    card.appendChild(para);
+
+
   }
 }
+
+/**
+ * Extract the image URL from the given recipe schema JSON object
+ * @param {Object} data Raw recipe JSON to find the image URL of
+ * @returns {String} If found, it returns the URL as a string, otherwise null
+ */
+function getImage(data) {
+
+  var dataThumb = searchForKey(data, 'image')['url'];
+  if (dataThumb) {
+    return dataThumb;
+  } else if (searchForKey(data, 'thumbnailUrl') != undefined){
+    //dataThumb = searchForKey(data, 'thumbnailUrl');
+    //console.log('else: ' + dataThumb);
+    return searchForKey(data, 'thumbnailUrl');
+  } else {
+    return searchForKey(data, '@graph')[2]['contentUrl'];
+
+  }
+
+}
+
+
+
 
 /*********************************************************************/
 /***                       Helper Functions:                       ***/
@@ -193,6 +302,8 @@ function convertTime(time) {
 
   return "";
 }
+
+
 
 /**
  * Takes in a list of ingredients raw from imported data and returns a neatly

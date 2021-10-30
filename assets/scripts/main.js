@@ -3,11 +3,12 @@
 // Here is where the recipes that you will fetch.
 // Feel free to add your own here for part 2, if they are local files simply add their path as a string.
 const recipes = [
-  "https://introweb.tech/assets/json/ghostCookies.json",
-  "https://introweb.tech/assets/json/birthdayCake.json",
-  "https://introweb.tech/assets/json/chocolateChip.json",
-  //"https://introweb.tech/assets/json/ghostCookie.json",
-  // "https://google.com",
+  'https://introweb.tech/assets/json/ghostCookies.json',
+  'https://introweb.tech/assets/json/birthdayCake.json',
+  'https://introweb.tech/assets/json/chocolateChip.json',
+  'assets/recipes/bakedSalmon.json',
+  'assets/recipes/roastedBroccoli.json',
+  'assets/recipes/redPotatoes.json'
 ];
 
 // Once all of the recipes that were specified above have been fetched, their
@@ -21,11 +22,13 @@ window.addEventListener("DOMContentLoaded", init);
 async function init() {
   // fetch the recipes and wait for them to load
   let fetchSuccessful = await fetchRecipes();
+
   // if they didn't successfully load, quit the function
   if (!fetchSuccessful) {
     console.log("Recipe fetch unsuccessful");
     return;
-  }
+  };
+
   // Add the first three recipe cards to the page
   createRecipeCards();
   // Make the "Show more" button functional
@@ -48,37 +51,50 @@ async function fetchRecipes() {
 
     for (const recipe of recipes) {
       fetch(recipe)
-        .then((response) => response.json())
-        .then((data) => (recipeData[recipe] = data))
-        .catch((err) => reject(false));
-    }
-  });
+      .then(response => {
+        if (!response.ok) {
 
-  //console.log("after allRecipePromise");
-
-  allRecipePromise.then(() => {
-    console.log("Inside");
-    if (Object.keys(recipeData).length === recipeData.length) {
-      console.log("all good");
-      resolve(true); // Yay! Everything went well!
-    } else {
-      console.log("Problems");
-      reject("Not able to fully populate the recipeData object");
+          throw new Error('Network response was not OK');
+        }
+        return response.json();
+      })
+      .then(data => {
+        recipeData[recipe] = data;
+        console.log(data);
+      })
+      .then(() => {
+        if (Object.keys(recipeData).length == recipes.length) {
+          resolve(true);
+        }
+      })
+      .catch((reason) => {
+        console.log(reason);
+      });
     }
-    return allRecipePromise;
+
   });
 }
 
-function createRecipeCards() {
+function createRecipeCards(count = 3) {
   // This function is called for you up above.
   // From within this function you can access the recipe data from the JSON
   // files with the recipeData Object above. Make sure you only display the
   // three recipes we give you, you'll use the bindShowMore() function to
   // show any others you've added when the user clicks on the "Show more" button.
   // Part 1 Expose - TODO
-  console.log("createRecipeCards");
-  for (const recipeJSON in recipeData) {
-    var recipeCard = new RecipeCard();
+  //console.log("createRecipeCards");
+
+  var main = document.getElementsByTagName('main')[0];
+
+  var numDisplayed = 0;
+
+  for (const [key, json] of Object.entries(recipeData)) {
+    //console.log(key, json);
+    var elem = document.createElement('recipe-card');
+    elem.data = json;
+    main.appendChild(elem);
+    numDisplayed++;
+    if (numDisplayed == count) return;
   }
 }
 
@@ -90,4 +106,30 @@ function bindShowMore() {
   // display it or not, so you don't need to fetch them again. Simply access them
   // in the recipeData object where you stored them/
   // Part 2 Explore - TODO
+  var buttonDiv = document.getElementById('button-wrapper');
+
+  buttonDiv.addEventListener('click', update);
+
+  function update() {
+    // 
+    var button = buttonDiv.getElementsByTagName('button')[0];
+    var myNodeList = document.getElementsByTagName('main')[0].querySelectorAll('recipe-card');
+    // Clear all 
+    for (let i = 0; i < myNodeList.length; i++) {
+      let item = myNodeList[i];
+      item.remove();
+    }  
+    
+    var txt = button.textContent;
+    if (txt == 'Show more') {
+      // Show all
+      createRecipeCards(Object.keys(recipeData).length)
+      button.innerText = 'Show less';
+    } else if (txt == 'Show less') {
+      // Show only 3
+      button.innerText = 'Show more';
+      createRecipeCards();
+          
+    }
+  }
 }
