@@ -106,18 +106,12 @@ class RecipeCard extends HTMLElement {
     this.shadowRoot.appendChild(styleElem);
 
     var url = getUrl(data);
-    console.log(url);
+    //console.log(url);
 
     var title = searchForKey(data, 'headline');
 
     var img = document.createElement('img');
-    var dataThumb = searchForKey(data, 'image')['url'];
-    if (dataThumb) {
-      img.src = dataThumb;
-    } else {
-      dataThumb = searchForKey(data, 'thumbnailUrl');
-      img.src = dataThumb;
-    }
+    img.src = getImage(data);
     img.alt = title;
     card.appendChild(img);
 
@@ -153,7 +147,7 @@ class RecipeCard extends HTMLElement {
       div.appendChild(span);
 
       img = document.createElement('img');
-      img.src = `/assets/images/icons/${ratingValue}-star.svg`;
+      img.src = `assets/images/icons/${ratingValue}-star.svg`;
       img.alt = `${ratingValue} stars`;
       div.appendChild(img);
 
@@ -195,6 +189,29 @@ class RecipeCard extends HTMLElement {
 
   }
 }
+
+/**
+ * Extract the image URL from the given recipe schema JSON object
+ * @param {Object} data Raw recipe JSON to find the image URL of
+ * @returns {String} If found, it returns the URL as a string, otherwise null
+ */
+function getImage(data) {
+
+  var dataThumb = searchForKey(data, 'image')['url'];
+  if (dataThumb) {
+    return dataThumb;
+  } else if (searchForKey(data, 'thumbnailUrl') != undefined){
+    //dataThumb = searchForKey(data, 'thumbnailUrl');
+    //console.log('else: ' + dataThumb);
+    return searchForKey(data, 'thumbnailUrl');
+  } else {
+    return searchForKey(data, '@graph')[2]['contentUrl'];
+
+  }
+
+}
+
+
 
 
 /*********************************************************************/
