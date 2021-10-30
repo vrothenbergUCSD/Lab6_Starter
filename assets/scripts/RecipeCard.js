@@ -103,16 +103,30 @@ class RecipeCard extends HTMLElement {
 
     // Part 1 Expose - TODO
     this.shadowRoot.append(card);
-    console.log('RecipeCard');
+    var img = document.createElement('img');
+    var data_image = searchForKey(data, 'image');
+    if (data_image) {
+      console.log(data_image['thumbnail']);
+      img.src = data_image['thumbnail'];
+      img.alt = searchForKey()
 
+    } else {
 
+    }
+    
+    
+    //img.src = 
+    //img.alt = searchForKey(data, 'title')
+    //card.append()
 
     var rating = searchForKey(data, 'aggregateRating');
     if (rating) {
-      console.log(rating);
+      //console.log(rating);
+      console.log(rating['ratingValue']);
+    } else {
+      console.log('No rating');
     }
-
-    //this.shadowRoot;
+    //card.append
 
   }
 }
