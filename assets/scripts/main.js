@@ -36,7 +36,7 @@ async function init() {
 }
 
 async function fetchRecipes() {
-  let allRecipePromise = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     // This function is called for you up above
     // From this function, you are going to fetch each of the recipes in the 'recipes' array above.
     // Once you have that data, store it in the 'recipeData' object. You can use whatever you like
