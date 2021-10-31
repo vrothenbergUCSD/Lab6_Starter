@@ -4,7 +4,7 @@ class RecipeCard extends HTMLElement {
     super();
 
     // You'll want to attach the shadow DOM here
-    const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({ mode: "open" });
   }
 
   set data(data) {
@@ -105,72 +105,77 @@ class RecipeCard extends HTMLElement {
     this.shadowRoot.appendChild(card);
     this.shadowRoot.appendChild(styleElem);
 
-    var url = getUrl(data);
+    let url = getUrl(data);
     //console.log(url);
 
-    var title = searchForKey(data, 'headline');
+    let title = searchForKey(data, "headline") || "Example recipe title";
 
-    var img = document.createElement('img');
-    img.src = getImage(data);
+    let img = document.createElement("img");
+    img.src =
+      getImage(data) || "assets/images/defaultImages/giant-cheesburger.jpeg";
     img.alt = title;
     card.appendChild(img);
 
     //<p class="title">
     //<a href="https://link-to-article.com">Title</a>
     //</p>
-    var para = document.createElement('p');
+    let para = document.createElement("p");
     card.appendChild(para);
-    var a = document.createElement('a');
-    para.appendChild(a);
+    let a = document.createElement("a");
     a.title = title;
-    var link = document.createTextNode(title);
+    para.appendChild(a);
+    let link = document.createTextNode(title);
     a.appendChild(link);
-    a.href = url;   
+    a.href = url;
 
     //<p class="organization">The Chef's Organization</p>
-    para = document.createElement('p');
-    para.setAttribute('class', 'organization');
+    para = document.createElement("p");
+    para.setAttribute("class", "organization");
     para.innerHTML = getOrganization(data);
     card.appendChild(para);
 
-    var div = document.createElement('div');
-    div.setAttribute('class', 'rating');
+    let div = document.createElement("div");
+    div.setAttribute("class", "rating");
 
-    var rating = searchForKey(data, 'aggregateRating');
-    var span;
-    var text;
+    let rating = searchForKey(data, "aggregateRating");
+    let span;
+    let text;
     if (rating) {
-      var ratingValue = Math.round(rating['ratingValue']);
-      span = document.createElement('span');
+      let ratingValue = Math.round(rating["ratingValue"]);
+      span = document.createElement("span");
       text = document.createTextNode(ratingValue);
       span.appendChild(text);
       div.appendChild(span);
 
-      img = document.createElement('img');
+      img = document.createElement("img");
       img.src = `assets/images/icons/${ratingValue}-star.svg`;
       img.alt = `${ratingValue} stars`;
       div.appendChild(img);
 
-      var totalReviews = rating['ratingCount'];
-      span = document.createElement('span');
-      text = document.createTextNode('(' + totalReviews + ')');
-      span.appendChild(text);
+      let totalReviews = rating["ratingCount"];
+      span = document.createElement("span");
+      text = document.createTextNode("(" + totalReviews + ")");
+      if (totalReviews) {
+        span.appendChild(text);
+      }
+
       div.appendChild(span);
     } else {
-      span = document.createElement('span');
-      text = document.createTextNode('No Reviews');
+      span = document.createElement("span");
+      text = document.createTextNode("No Reviews");
       span.appendChild(text);
       div.appendChild(span);
     }
     card.appendChild(div);
 
-
     //<time>50 min</time>
 
-    var totalTime = searchForKey(data, 'totalTime');
+    let totalTime = searchForKey(data, "totalTime");
 
-    var time = document.createElement('time');
-    text = document.createTextNode(convertTime(totalTime));
+    let time = document.createElement("time");
+    text = totalTime
+      ? document.createTextNode(convertTime(totalTime))
+      : document.createTextNode("Time not given");
     time.appendChild(text);
     card.appendChild(time);
 
@@ -178,15 +183,15 @@ class RecipeCard extends HTMLElement {
     //Comma, Separated, List, of, Ingredients
     //</p>
 
-    var recipeArr = searchForKey(data, 'recipeIngredient');
+    let recipeArr = searchForKey(data, "recipeIngredient");
 
-    para = document.createElement('p');
-    para.setAttribute('class', 'ingredients');
-    text = document.createTextNode(createIngredientList(recipeArr));
+    para = document.createElement("p");
+    para.setAttribute("class", "ingredients");
+    text = recipeArr
+      ? document.createTextNode(createIngredientList(recipeArr))
+      : document.createTextNode("Ingredients not given");
     para.appendChild(text);
     card.appendChild(para);
-
-
   }
 }
 
@@ -196,23 +201,17 @@ class RecipeCard extends HTMLElement {
  * @returns {String} If found, it returns the URL as a string, otherwise null
  */
 function getImage(data) {
-
-  var dataThumb = searchForKey(data, 'image')['url'];
+  let dataThumb = searchForKey(data, "image")["url"];
   if (dataThumb) {
     return dataThumb;
-  } else if (searchForKey(data, 'thumbnailUrl') != undefined){
+  } else if (searchForKey(data, "thumbnailUrl") != undefined) {
     //dataThumb = searchForKey(data, 'thumbnailUrl');
     //console.log('else: ' + dataThumb);
-    return searchForKey(data, 'thumbnailUrl');
+    return searchForKey(data, "thumbnailUrl");
   } else {
-    return searchForKey(data, '@graph')[2]['contentUrl'];
-
+    return searchForKey(data, "@graph")[2]["contentUrl"];
   }
-
 }
-
-
-
 
 /*********************************************************************/
 /***                       Helper Functions:                       ***/
@@ -227,7 +226,7 @@ function getImage(data) {
  * @returns {*} the value of the found key
  */
 function searchForKey(object, key) {
-  var value;
+  let value;
   Object.keys(object).some(function (k) {
     if (k === key) {
       value = object[k];
@@ -302,8 +301,6 @@ function convertTime(time) {
 
   return "";
 }
-
-
 
 /**
  * Takes in a list of ingredients raw from imported data and returns a neatly

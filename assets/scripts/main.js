@@ -3,12 +3,12 @@
 // Here is where the recipes that you will fetch.
 // Feel free to add your own here for part 2, if they are local files simply add their path as a string.
 const recipes = [
-  'https://introweb.tech/assets/json/ghostCookies.json',
-  'https://introweb.tech/assets/json/birthdayCake.json',
-  'https://introweb.tech/assets/json/chocolateChip.json',
-  'assets/recipes/bakedSalmon.json',
-  'assets/recipes/roastedBroccoli.json',
-  'assets/recipes/redPotatoes.json'
+  "https://introweb.tech/assets/json/ghostCookies.json",
+  "https://introweb.tech/assets/json/birthdayCake.json",
+  "https://introweb.tech/assets/json/chocolateChip.json",
+  "assets/recipes/bakedSalmon.json",
+  "assets/recipes/roastedBroccoli.json",
+  "assets/recipes/redPotatoes.json",
 ];
 
 // Once all of the recipes that were specified above have been fetched, their
@@ -27,7 +27,7 @@ async function init() {
   if (!fetchSuccessful) {
     console.log("Recipe fetch unsuccessful");
     return;
-  };
+  }
 
   // Add the first three recipe cards to the page
   createRecipeCards();
@@ -49,29 +49,39 @@ async function fetchRecipes() {
 
     // Part 1 Expose - TODO
 
+    let recipeCount = 0;
     for (const recipe of recipes) {
+      recipeCount += 1;
       fetch(recipe)
-      .then(response => {
-        if (!response.ok) {
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not OK");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          recipeData[recipe] = data;
+        })
+        .then(() => {
+          // check if al recipe JSON files have loaded into the array
+          if (Object.keys(recipeData).length === recipes.length) {
+            resolve(true);
+          }
+        })
+        .catch((err) => {
+          reject(err);
+        });
 
-          throw new Error('Network response was not OK');
-        }
-        return response.json();
-      })
-      .then(data => {
-        recipeData[recipe] = data;
-        console.log(data);
-      })
-      .then(() => {
-        if (Object.keys(recipeData).length == recipes.length) {
-          resolve(true);
-        }
-      })
-      .catch((reason) => {
-        console.log(reason);
-      });
+      // testing if the recipes don't end up loading - failed
+      // async behavior: doesn't reflect change in recipeCount
+      //
+      // if (
+      //   Object.keys(recipeData).length !== recipes.length &&
+      //   recipeCount === recipes.length
+      // ) {
+      //   reject("Can't load the recipes from the JSON file properly.");
+      // }
     }
-
   });
 }
 
@@ -84,16 +94,17 @@ function createRecipeCards(count = 3) {
   // Part 1 Expose - TODO
   //console.log("createRecipeCards");
 
-  var main = document.getElementsByTagName('main')[0];
-
-  var numDisplayed = 0;
+  let main = document.getElementsByTagName("main")[0];
+  // console.log(main);
+  let numDisplayed = 0;
 
   for (const [key, json] of Object.entries(recipeData)) {
     //console.log(key, json);
-    var elem = document.createElement('recipe-card');
+    let elem = document.createElement("recipe-card");
     elem.data = json;
     main.appendChild(elem);
     numDisplayed++;
+    // error handling for loading all recipes
     if (numDisplayed == count) return;
   }
 }
@@ -106,30 +117,30 @@ function bindShowMore() {
   // display it or not, so you don't need to fetch them again. Simply access them
   // in the recipeData object where you stored them/
   // Part 2 Explore - TODO
-  var buttonDiv = document.getElementById('button-wrapper');
+  let buttonDiv = document.getElementById("button-wrapper");
 
-  buttonDiv.addEventListener('click', update);
+  buttonDiv.addEventListener("click", update);
 
   function update() {
-    // 
-    var button = buttonDiv.getElementsByTagName('button')[0];
-    var myNodeList = document.getElementsByTagName('main')[0].querySelectorAll('recipe-card');
-    // Clear all 
+    let button = buttonDiv.getElementsByTagName("button")[0];
+    let myNodeList = document
+      .getElementsByTagName("main")[0]
+      .querySelectorAll("recipe-card");
+    // Clear all
     for (let i = 0; i < myNodeList.length; i++) {
       let item = myNodeList[i];
       item.remove();
-    }  
-    
-    var txt = button.textContent;
-    if (txt == 'Show more') {
+    }
+
+    let txt = button.textContent;
+    if (txt == "Show more") {
       // Show all
-      createRecipeCards(Object.keys(recipeData).length)
-      button.innerText = 'Show less';
-    } else if (txt == 'Show less') {
+      createRecipeCards(Object.keys(recipeData).length);
+      button.innerText = "Show less";
+    } else if (txt == "Show less") {
       // Show only 3
-      button.innerText = 'Show more';
+      button.innerText = "Show more";
       createRecipeCards();
-          
     }
   }
 }
